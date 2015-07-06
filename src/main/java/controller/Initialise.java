@@ -25,8 +25,6 @@ public class Initialise {
 
 	public static Boolean putRandownMines(Desk desk, int mines) {
 
-		// Map<Integer,Integer> myMines = new HashMap<Integer, Integer>();
-
 		if (mines >= desk.getHeight() * desk.getWidth()) {
 			return false;
 		} else {

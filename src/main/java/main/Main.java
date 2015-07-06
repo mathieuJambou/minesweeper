@@ -1,9 +1,12 @@
 package main;
 
+import view.ConsoleView;
 import controller.Initialise;
 import model.Desk;
 
 public class Main {
+
+	private static ConsoleView consoleView;
 
 	public static void main(String[] args) {
 
@@ -25,6 +28,9 @@ public class Main {
 			Initialise.putRandownMines(d, mines);
 		}
 		
+		consoleView = new ConsoleView();
+		
+		consoleView.displayDesk(d);
 		
 		System.out.println("End");
 		
