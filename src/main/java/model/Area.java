@@ -1,5 +1,10 @@
 package model;
 
+
+/**
+ * @author mathieu
+ *
+ */
 public class Area {
 
 	private Integer positionX;

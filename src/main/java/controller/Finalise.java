@@ -2,6 +2,10 @@ package controller;
 
 import model.Desk;
 
+/**
+ * @author mathieu
+ *
+ */
 public class Finalise {
 
 	
