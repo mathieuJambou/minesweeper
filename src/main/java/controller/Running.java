@@ -17,7 +17,7 @@ public class Running {
 	 * @param j 
 	 * @return true if desk[i][j] isn't hide else false
 	 */
-	public Boolean checkAreaAlreadyDiscovered(Desk desk, int i, int j)
+	public static Boolean checkAreaAlreadyDiscovered(Desk desk, int i, int j)
 	{
 		if(!desk.getMyDesk()[i][j].getDisplayState().equals(DisplayState.HIDE))
 		{
@@ -35,7 +35,7 @@ public class Running {
 	 * @param j
 	 * @return  true if desk[i][j] contains a mine else false
 	 */
-	public Boolean checkAreaWithMine(Desk desk, int i, int j)
+	public static Boolean checkAreaWithMine(Desk desk, int i, int j)
 	{
 		if(desk.getMyDesk()[i][j].getBackgroundState().equals(BackgroundState.MINE))
 		{
@@ -53,7 +53,7 @@ public class Running {
 	 * @param j
 	 *  change the state of the desk[i][j] to be marked
 	 */
-	public void indicateArea(Desk desk, int i, int j)
+	public static void indicateArea(Desk desk, int i, int j)
 	{
 		desk.getMyDesk()[i][j].setDisplayState(DisplayState.MARK);
 	}
@@ -64,7 +64,7 @@ public class Running {
 	 * @param j
 	 * @return the number of the mines around desk[i][j]
 	 */
-	public Integer neightborMines(Desk desk, int i, int j)
+	public static Integer neightborMines(Desk desk, int i, int j)
 	{
 		Integer result=0;
 		int m = desk.getHeight();
@@ -75,7 +75,7 @@ public class Running {
 		{
 			for(int x = Math.max(j-1,0); x <= Math.min(j+1, n); x++ )
 			{
-				if(desk.getMyDesk()[y][x].getBackgroundState().equals(BackgroundState.MINE) && (y !=i && x!=j))
+				if(desk.getMyDesk()[y][x].getBackgroundState().equals(BackgroundState.MINE) && !(y ==i && x==j))
 				{
 					result++;
 				}

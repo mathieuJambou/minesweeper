@@ -16,12 +16,19 @@ public class Area {
 	
 
 	
+	/**
+	 * @param positionX
+	 * @param positionY
+	 * Default backgroundState is empty
+	 * Default displayState is hide
+	 */
 	public Area(Integer positionX, Integer positionY) {
 		super();
 		this.positionX = positionX;
 		this.positionY = positionY;
 		//TODO add displayState
 		this.backgroundState = BackgroundState.EMPTY;
+		this.displayState = DisplayState.HIDE;
 	}
 
 	public Integer getPositionX() {
