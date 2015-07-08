@@ -1,5 +1,9 @@
 package exception;
 
+/**
+ * @author mathieu
+ *
+ */
 public class AreaDiscoveredException  	extends Exception {
 
 	/**

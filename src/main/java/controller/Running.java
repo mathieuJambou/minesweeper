@@ -1,9 +1,6 @@
 package controller;
 
-import java.io.ObjectInputStream.GetField;
-
 import org.apache.log4j.Logger;
-import org.apache.log4j.spi.LoggerFactory;
 
 import exception.AreaDiscoveredException;
 import exception.MineException;
@@ -170,6 +167,12 @@ public class Running {
 		return result;
 	}
 	
+	/**
+	 * @param desk
+	 * @param i
+	 * @param j
+	 * @return calcul the nb of mines around , if 0 : check the areas around
+	 */
 	public static void checkMinesByRecursivity(Desk d, int i, int j)
 	{
 		Integer nbNeighborMines = Running.neightborMines(d, i, j);
@@ -204,13 +207,22 @@ public class Running {
 	 */
 	public static void discoverArea(Desk desk, int i, int j) throws AreaDiscoveredException, OutOfDeskException, MineException
 	{
+		/*
+		 * check if the coordinates are correct
+		 */
 		if(!Running.isInsideDesk(desk, i, j))
 		{
 			throw new OutOfDeskException();
 		}
 				
+		/*
+		 * check if the area if already discovered
+		 */
 		if(!Running.checkAreaAlreadyDiscovered(desk,i,j))
 		{
+			/*
+			 * check if the area contains a mine
+			 */
 			if(Running.checkAreaWithMine(desk, i, j))
 			{
 				throw new MineException();
@@ -219,7 +231,6 @@ public class Running {
 			{
 				Running.checkMinesByRecursivity( desk, i, j);
 			}
-			
 		}
 		else
 		{

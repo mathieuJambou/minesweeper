@@ -5,14 +5,16 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import controller.Finalise;
-import controller.Running;
+import controller.facade.MineSweeper;
 import exception.AreaDiscoveredException;
 import exception.MineException;
 import exception.OutOfDeskException;
-import main.Main;
 import model.Desk;
 
+/**
+ * @author mathieu
+ *
+ */
 public class ConsoleView 
 implements DeskView{
 
@@ -20,10 +22,14 @@ implements DeskView{
 	final static Logger logger = Logger.getLogger(ConsoleView.class);
 	private static Scanner reader;
 	
+	private MineSweeper mineSweeper;
+	
 	@Override
-	public void displayDesk(Desk d) {
+	public void displayDesk(Desk d, MineSweeper mineSweeper) {
 		
 		setD(d);
+		setMineSweeper(mineSweeper);
+		
 		
 		boolean loop=true;
 		reader = new Scanner(System.in);
@@ -75,7 +81,7 @@ implements DeskView{
 		    if(action == 1)
 		    {
 		    	try {
-		    		Running.discoverArea(d, row, col);
+		    		mineSweeper.discoverArea(d, row, col);
 		    	}
 		    	catch( OutOfDeskException e)
 		    	{
@@ -94,7 +100,7 @@ implements DeskView{
 		    }
 		    else if(action == 2)
 		    {
-		    	Running.indicateArea(d, row, col);
+		    	mineSweeper.indicateArea(d, row, col);
 		    }
 		    else if(action == 3)
 		    {
@@ -106,7 +112,7 @@ implements DeskView{
 		    }			
 			
 		}
-		while(!Finalise.IsFinished(d));
+		while(!mineSweeper.IsFinished(d));
 		
 		System.out.print("--- You've found the result. ---");
 		DisplayBoard(d);
@@ -138,6 +144,16 @@ implements DeskView{
 
 	public void setD(Desk d) {
 		this.d = d;
+	}
+
+
+	public MineSweeper getMineSweeper() {
+		return mineSweeper;
+	}
+
+
+	public void setMineSweeper(MineSweeper mineSweeper) {
+		this.mineSweeper = mineSweeper;
 	}
 	
 	

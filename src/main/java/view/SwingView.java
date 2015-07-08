@@ -6,48 +6,58 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import org.apache.log4j.Logger;
 
-import controller.Finalise;
-import controller.Running;
+import controller.facade.MineSweeper;
 import exception.AreaDiscoveredException;
 import exception.MineException;
 import exception.OutOfDeskException;
 import model.Desk;
 
+/**
+ * @author mathieu
+ *
+ */
 public class SwingView implements DeskView{
 
 	private Desk desk;
-	private JFrame minesWeeperWindow;
+	private JFrame mineSweeperWindow;
+	private MineSweeper mineSweeper;
 	final static Logger logger = Logger.getLogger(ConsoleView.class);
 	
 	@Override
-	public void displayDesk(Desk d) {
+	public void displayDesk(Desk d,  MineSweeper mineSweeper) {
 		
 		setDesk(d);
+		setMineSweeper(mineSweeper);
 		
-		minesWeeperWindow = new JFrame();
-		minesWeeperWindow.setTitle("Mines weeper");
-		minesWeeperWindow.setSize(800, 600);
-		minesWeeperWindow.setResizable(false);
-		minesWeeperWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		minesWeeperWindow.setLocationRelativeTo(null);
+		mineSweeperWindow = new JFrame();
+		mineSweeperWindow.setTitle("Mines weeper");
+		mineSweeperWindow.setSize(800, 600);
+		mineSweeperWindow.setResizable(false);
+		mineSweeperWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mineSweeperWindow.setLocationRelativeTo(null);
 		
 		MinesPanel minesPanel = new MinesPanel();
-		minesWeeperWindow.add(minesPanel);
+		mineSweeperWindow.add(minesPanel);
 		
-		minesWeeperWindow.setVisible(true);
+		mineSweeperWindow.setVisible(true);
 	}
 	
 	public class MinesPanel extends JPanel 
 	{
-	    private JButton Areas[][];
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = -6552384886987090696L;
+		
+		private JButton Areas[][];
 
+	    /*
+	     * Define the layout the Desk
+	     */
 	    public MinesPanel() 
 	    {
 	        setLayout(new GridLayout(desk.getHeight(), desk.getWidth()));
@@ -56,6 +66,9 @@ public class SwingView implements DeskView{
 	        buildButtons();
 	    }
 	    
+	    /*
+	     * Build the Desk
+	     */
 	    public void buildButtons()
 	    {
 	        for(int i = 0; i < desk.getHeight(); i++)
@@ -69,10 +82,13 @@ public class SwingView implements DeskView{
 	        }
 	    }
 	    
+	    /*
+	     * Define the events
+	     */
 	    private class MouseHandler extends MouseAdapter
 	    {
 	    	
-	    	public  int i, j; 
+	    	private  int i, j; 
 	        public MouseHandler(int i, int j)
 	        {
 	            this.i = i;
@@ -81,10 +97,13 @@ public class SwingView implements DeskView{
 
 	    	public void mouseClicked(MouseEvent e)
 	    	{
+	    		/*
+	    		 * Catch the left click
+	    		 */
 	    		if(e.getButton() == 1)
 	    		{
 	    			try {
-			    		Running.discoverArea(desk, i, j);
+	    				mineSweeper.discoverArea(desk, i, j);
 			    		
 			    		for(int u=0; u<desk.getHeight(); u++)
 			    		{
@@ -108,14 +127,21 @@ public class SwingView implements DeskView{
 						System.exit(0);
 					}
 	    	    }
+	    		
+	    		/*
+	    		 * Catch the right click
+	    		 */
 	    		else if(e.getButton() == 3)
 	    		{
-	    			Running.indicateArea(desk, i, j);
+	    			mineSweeper.indicateArea(desk, i, j);
 	    			
 	    			Areas[i][j].setText(desk.getMyDesk()[i][j].getDisplayState().toString());
 	    		}
 	    		
-	    		if(Finalise.IsFinished(desk))
+	    		/*
+	    		 * Check the state of the game
+	    		 */
+	    		if(mineSweeper.IsFinished(desk))
 	    		{
 	    			System.out.println("You've found the result.");
 	    			System.exit(0);
@@ -132,12 +158,20 @@ public class SwingView implements DeskView{
 		this.desk = desk;
 	}
 
-	public JFrame getMinesWeeperWindow() {
-		return minesWeeperWindow;
+	public JFrame getMineSweeperWindow() {
+		return mineSweeperWindow;
 	}
 
-	public void setMinesWeeperWindow(JFrame minesWeeperWindow) {
-		this.minesWeeperWindow = minesWeeperWindow;
+	public void setMineSweeperWindow(JFrame mineSweeperWindow) {
+		this.mineSweeperWindow = mineSweeperWindow;
+	}
+
+	public MineSweeper getMineSweeper() {
+		return mineSweeper;
+	}
+
+	public void setMineSweeper(MineSweeper mineSweeper) {
+		this.mineSweeper = mineSweeper;
 	}
 	
 }
