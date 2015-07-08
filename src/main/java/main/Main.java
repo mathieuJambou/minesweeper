@@ -1,38 +1,46 @@
 package main;
 
+import org.apache.log4j.Logger;
+
 import view.ConsoleView;
+import view.DeskView;
 import controller.Initialise;
+import controller.Running;
 import model.Desk;
 
 public class Main {
 
-	private static ConsoleView consoleView;
+	private static DeskView deskView;
+	final static Logger logger = Logger.getLogger(Main.class);
+
 
 	public static void main(String[] args) {
 
-		System.out.println("Start");
-		
+		logger.info("--- Start Main ---");
+
 		int x = 4;
 		int y=4;
 		
 		int mines = 2;
 		
-		System.out.println("--- Initialise ---");
+		logger.info("--- Initialise ---");
 		
 		Desk d = Initialise.initialiseDesk(x, y);
 		
-		if(d!= null)
+		if(d == null)
 		{
-			System.out.println("--- Put mines ---");
-			
-			Initialise.putRandownMines(d, mines);
+			logger.info("--- initialise with errors---");
+			return;
 		}
 		
-		consoleView = new ConsoleView();
+		logger.info("--- Put mines ---");
+		Initialise.putRandownMines(d, mines);
 		
-		consoleView.displayDesk(d);
+		deskView = new ConsoleView();
 		
-		System.out.println("End");
+		deskView.displayDesk(d);
+		
+		logger.info("--- End ---");
 		
 	}
 

@@ -1,5 +1,10 @@
 package controller;
 
+import java.io.ObjectInputStream.GetField;
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
+
 import model.BackgroundState;
 import model.Desk;
 import model.DisplayState;
@@ -10,6 +15,21 @@ import model.DisplayState;
  */
 public class Running {
 	
+	final static Logger logger = Logger.getLogger(Running.class);
+	
+	
+	//TODO check if i/j are in the desk
+	
+	/**
+	 * @param d
+	 * @param i
+	 * @param j
+	 * @return true if area[i,j] is inside the Desk else return false 
+	 */
+	public static Boolean isInsideDesk(Desk d, int i, int j) {
+        return (i >= 0 && i < d.getHeight()) && 
+               (j >= 0 && j < d.getWidth());
+    }
 	
 	/**
 	 * @param desk
@@ -19,6 +39,8 @@ public class Running {
 	 */
 	public static Boolean checkAreaAlreadyDiscovered(Desk desk, int i, int j)
 	{
+		logger.debug("checkAreaAlreadyDiscovered : position Y : " + i + " , position X: " + j);
+
 		if(!desk.getMyDesk()[i][j].getDisplayState().equals(DisplayState.HIDE))
 		{
 			return true;
@@ -37,6 +59,8 @@ public class Running {
 	 */
 	public static Boolean checkAreaWithMine(Desk desk, int i, int j)
 	{
+		logger.debug("checkAreaWithMine : position Y : " + i + " , position X: " + j);
+
 		if(desk.getMyDesk()[i][j].getBackgroundState().equals(BackgroundState.MINE))
 		{
 			return true;
@@ -55,6 +79,8 @@ public class Running {
 	 */
 	public static void indicateArea(Desk desk, int i, int j)
 	{
+		logger.debug("indicateArea : position Y : " + i + " , position X: " + j);
+
 		desk.getMyDesk()[i][j].setDisplayState(DisplayState.MARK);
 	}
 
@@ -66,6 +92,8 @@ public class Running {
 	 */
 	public static Integer neightborMines(Desk desk, int i, int j)
 	{
+		logger.debug("indicateArea : position Y : " + i + " , position X: " + j);
+
 		Integer result=0;
 		int m = desk.getHeight();
 		int n = desk.getWidth();

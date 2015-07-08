@@ -13,11 +13,12 @@ implements DeskView{
 		
 		for(int i =0; i<d.getHeight(); i++)
 		{
-			String line ="";
+			String line ="[ ";
 			for(int j=0; j<d.getWidth(); j++)
 			{
-				line = line +" " +  d.getMyDesk()[i][j].getBackgroundState();
+				line = j==0? line +" " + d.getMyDesk()[i][j].getBackgroundState()  : line  +" | " +  d.getMyDesk()[i][j].getBackgroundState();
 			}
+			line = line + " ]";
 			System.out.println(line);
 		}
 	}

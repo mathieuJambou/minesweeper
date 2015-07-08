@@ -21,6 +21,19 @@ public class TestRunning {
 		d = Initialise.initialiseDesk(x, y);
 	}
 	
+	@Test
+	public void testisInsideDesk() throws Exception {
+		
+		assertEquals(true, Running.isInsideDesk(d, 0,0));
+		assertEquals(true, Running.isInsideDesk(d, 1,1));
+		assertEquals(true, Running.isInsideDesk(d, 0,3));
+		assertEquals(false, Running.isInsideDesk(d, -2,2));
+		assertEquals(false, Running.isInsideDesk(d, 41,3));
+		assertEquals(false, Running.isInsideDesk(d, 9,6));
+		assertEquals(false, Running.isInsideDesk(d, 6,9));
+	
+	}
+	
 	
 	@Test
 	public void testDiscoveredState() throws Exception {

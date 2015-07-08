@@ -24,9 +24,9 @@ public class Area {
 	 */
 	public Area(Integer positionX, Integer positionY) {
 		super();
+		//Verify if positionX/Y are usefull
 		this.positionX = positionX;
 		this.positionY = positionY;
-		//TODO add displayState
 		this.backgroundState = BackgroundState.EMPTY;
 		this.displayState = DisplayState.HIDE;
 	}
