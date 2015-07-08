@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import view.ConsoleView;
 import view.DeskView;
+import view.SwingView;
 import controller.Finalise;
 import controller.Initialise;
 import controller.Running;
@@ -37,6 +38,7 @@ public class Main {
 	     	 try {
 	                System.out.println("Enter the number of rows: ");
 	                rows = reader.nextInt();
+	                logger.debug("rows selected: " + rows);
 	                loop = false;
 	     	 } catch (InputMismatchException e) {
 	                System.out.println("Invalid value!");
@@ -48,6 +50,7 @@ public class Main {
 	     	 try {
 	                System.out.println("Enter the number of cols: ");
 	                cols = reader.nextInt();
+	                logger.debug("cols selected: " + cols);
 	                loop = false;
 	     	 } catch (InputMismatchException e) {
 	                System.out.println("Invalid value!");
@@ -59,12 +62,12 @@ public class Main {
 	     	 try {
 	                System.out.println("Enter the number of mines: ");
 	                mines = reader.nextInt();
+	                logger.debug("mines selected: " + mines);
 	                loop = false;
 	     	 } catch (InputMismatchException e) {
 	                System.out.println("Invalid value!");
 	         } 
 	     }
-	     loop= true;
 		
 		logger.info("--- Initialise ---");
 		
@@ -85,90 +88,10 @@ public class Main {
 			return;
 		}
 		
-		deskView = new ConsoleView();
-		
-		do {
-			
-			deskView.displayDesk(d);
-			
-			int row = 0, col = 0, action = 0;
-			
-			while (loop)
-		    {
-		    	 try {
-		    		 System.out.print("Enter an action 1:open; 2:mark; 3:quit: ");
-		    		 action = reader.nextInt();
-		               loop = false;
-		    	 } catch (InputMismatchException e) {
-		               System.out.println("Invalid value!");
-		        } 
-		    }
-		    loop= true;
-			
-			while (loop)
-		    {
-		    	 try {
-		               System.out.println("Enter a row: ");
-		               row = reader.nextInt();
-		               loop = false;
-		    	 } catch (InputMismatchException e) {
-		               System.out.println("Invalid value!");
-		        } 
-		    }
-		    loop= true;
-		    while (loop)
-		    {
-		    	 try {
-		               System.out.println("Enter a col: ");
-		               col = reader.nextInt();
-		               loop = false;
-		    	 } catch (InputMismatchException e) {
-		               System.out.println("Invalid value!");
-		        } 
-		    }
-		    loop= true;
-		    
-		    if(action == 1)
-		    {
-		    	try {
-		    		Running.discoverArea(d, row, col);
-		    	}
-		    	catch( OutOfDeskException e)
-		    	{
-		    		System.out.println(e.getMessage());
-		    	} 
-		    	catch (AreaDiscoveredException e) 
-		    	{
-		    		System.out.println(e.getMessage());
-				} 
-		    	catch (MineException e) 
-		    	{
-					System.out.println(e.getMessage());
-					System.exit(0);
-				}
-		    	
-		    }
-		    else if(action == 2)
-		    {
-		    	Running.indicateArea(d, row, col);
-		    }
-		    else if(action == 3)
-		    {
-		    	System.exit(0);
-		    }
-		    else
-		    {
-		    	System.out.println("Invalid action!");	
-		    }			
-			
-		}
-		while(!Finalise.IsFinished(d));
+		deskView = new SwingView();
 		
 		deskView.displayDesk(d);
-		
-		
-		logger.info("--- End ---");
-		
+			
 	}
 
 }
