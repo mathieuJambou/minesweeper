@@ -18,8 +18,6 @@ public class Running {
 	final static Logger logger = Logger.getLogger(Running.class);
 	
 	
-	//TODO check if i/j are in the desk
-	
 	/**
 	 * @param d
 	 * @param i
