@@ -75,6 +75,10 @@ public class TestRunning {
 		
 		assertEquals((Integer)3 , Running.neightborMines(d, 1, 1));
 		assertEquals((Integer)0 , Running.neightborMines(d, 4, 3));
+		assertEquals((Integer)2 , Running.neightborMines(d, 0, 0));
+		assertEquals((Integer)0 , Running.neightborMines(d, 0, 9));
+		assertEquals((Integer)0 , Running.neightborMines(d, 6, 0));
+		assertEquals((Integer)0 , Running.neightborMines(d, 6, 9));
 	}
 	
 	
